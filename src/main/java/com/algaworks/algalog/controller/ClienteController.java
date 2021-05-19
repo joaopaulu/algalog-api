@@ -2,6 +2,7 @@ package com.algaworks.algalog.controller;
 
 import com.algaworks.algalog.model.Cliente;
 import com.algaworks.algalog.repository.ClienteRepository;
+import com.algaworks.algalog.service.ClienteService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class ClienteController {
     @Autowired
     private final ClienteRepository repository;
 
+    @Autowired
+    private final ClienteService service;
+
     @GetMapping
     public List<Cliente> listar() {
         return repository.findAll();
@@ -35,7 +39,7 @@ public class ClienteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-        return repository.save(cliente);
+        return service.salvar(cliente);
     }
 
     @PutMapping("{id}")
@@ -45,7 +49,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
         cliente.setId(id);
-        cliente = repository.save(cliente);
+        cliente = service.salvar(cliente);
 
         return ResponseEntity.ok(cliente);
     }
@@ -56,7 +60,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
 
-        repository.deleteById(id);
+        service.excluir(id);
         return ResponseEntity.noContent().build();
     }
 }
