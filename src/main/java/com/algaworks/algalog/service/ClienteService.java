@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ClienteService {
 
-    private ClienteRepository repository;
+    private final ClienteRepository repository;
 
     public Cliente buscar(Long id){
         return repository.findById(id)
