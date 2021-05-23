@@ -4,20 +4,19 @@ import com.algaworks.algalog.model.Cliente;
 import com.algaworks.algalog.model.Entrega;
 import com.algaworks.algalog.model.Enum.StatusEntrega;
 import com.algaworks.algalog.repository.EntregaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 
 @Service
+@AllArgsConstructor
 public class EntregaService {
 
-    @Autowired
-    private ClienteService service;
+    private final ClienteService service;
 
-    @Autowired
-    private EntregaRepository repository;
+    private final EntregaRepository repository;
 
     @Transactional
     public Entrega solicitar(Entrega entrega){
